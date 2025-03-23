@@ -1,0 +1,30 @@
+/* @tailwind base;
+@tailwind components;
+@tailwind utilities; */
+
+@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;600&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+    font-family: 'Nunito', sans-serif;
+    font-size: 14px; /* Ubah ikut keperluan */
+}
+select {
+    font-family: 'Nunito', sans-serif;
+    font-size: 14px; /* Boleh ubah ikut keperluan */
+}
+input[type="date"] {
+    font-family: 'Nunito', sans-serif;
+    font-size: 14px; /* Ubah ikut keperluan */
+}
+input[type="number"] {
+    font-family: 'Nunito', sans-serif;
+    font-size: 14px; /* Sesuaikan saiz */
+}
+input[type="text"] {
+    font-family: 'Nunito', sans-serif;
+    font-size: 14px; /* Sesuaikan saiz */
+}
