@@ -52,36 +52,36 @@
 
                         <div>
                             <x-input-label for="title" :value="__('Tajuk Unjuran')" />
-                            <x-text-input id="title" name="title" type="text" class="mt-1 block w-full" :value="old('title', $projection->title)" required style="text-transform: uppercase;" oninput="this.value = this.value.toUpperCase()" />
+                            <x-text-input id="title" name="title" type="text" class="mt-1 block w-full" :value="old('title', $projection->title)"  style="text-transform: uppercase;" oninput="this.value = this.value.toUpperCase()" />
                             <x-input-error class="mt-2" :messages="$errors->get('title')" />
                         </div>
 
                         <div>
                             <x-input-label for="year" :value="__('Tahun')" />
-                            <x-text-input id="year" name="year" type="number" class="mt-1 block w-full" :value="old('year', $projection->year)" required />
+                            <x-text-input id="year" name="year" type="number" class="mt-1 block w-full" :value="old('year', $projection->year)"  />
                             <x-input-error class="mt-2" :messages="$errors->get('year')" />
                         </div>
 
                         @php
                         $labels = [
-                            'entity_code_id' => 'Kod Entiti',
-                            'fund_id' => 'Kod Dana',
-                            'asnaf_id' => 'Kod Asnaf',
-                            'department_id' => 'Kod Bahagian',
-                            'program_id' => 'Kod Program',
-                            'project_id' => 'Kod Projek',
+                            'entity_code' => 'Kod Entiti',
+                            'fund_code' => 'Kod Dana',
+                            'asnaf_code' => 'Kod Asnaf',
+                            'department_code' => 'Kod Bahagian',
+                            'program_code' => 'Kod Program',
+                            'project_code' => 'Kod Projek',
                             'expense_code_id' => 'Kod Belanja',
                             'budget_code_id' => 'Kod Bajet'
                         ];
                         @endphp
 
                         @foreach ([
-                            'entity_code_id' => $entityCodes,
-                            'fund_id' => $funds,
-                            'asnaf_id' => $asnaf,
-                            'department_id' => $departments,
-                            'program_id' => $programs,
-                            'project_id' => $projects,
+                            'entity_code' => $entityCodes,
+                            'fund_code' => $funds,
+                            'asnaf_code' => $asnaf,
+                            'department_code' => $departments,
+                            'program_code' => $programs,
+                            'project_code' => $projects,
                             'expense_code_id' => $expenseCodes,
                             'budget_code_id' => $budgetCodes
                         ] as $name => $collection)
@@ -101,7 +101,7 @@
 
                         <div>
                             <x-input-label for="amount" :value="__('Amaun (RM)')" />
-                            <x-text-input id="amount" name="amount" type="number" class="mt-1 block w-full" :value="old('amount', $projection->amount)" required step="0.01" />
+                            <x-text-input id="amount" name="amount" type="number" class="mt-1 block w-full" :value="old('amount', $projection->amount)"  step="0.01" />
                             <x-input-error class="mt-2" :messages="$errors->get('amount')" />
                         </div>
 

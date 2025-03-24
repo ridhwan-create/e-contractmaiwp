@@ -2,9 +2,8 @@
 
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
-use Illuminate\Support\Facades\Auth;
 
-// Controller
+// use App\Http\Controllers\Api\ContractController;
 use App\Http\Controllers\Web\ContractController;
 use App\Http\Controllers\Web\ProjectionController;
 use App\Http\Controllers\Web\PaymentController;
@@ -19,17 +18,28 @@ use App\Http\Controllers\DepartmentController;
 use App\Http\Controllers\ProgramController;
 use App\Http\Controllers\ProjectController;
 
-// Redirect ke login jika akses root
+use Illuminate\Support\Facades\Auth;
+
+/*
+|--------------------------------------------------------------------------
+| Web Routes
+|--------------------------------------------------------------------------
+|
+| Here is where you can register web routes for your application. These
+| routes are loaded by the RouteServiceProvider and all of them will
+| be assigned to the "web" middleware group. Make something great!
+|
+*/
+
 Route::get('/', function () {
+    // return view('welcome');
     return redirect()->route('login');
 });
 
-// Dashboard hanya boleh diakses oleh pengguna yang login
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
 
-// Proses logout
 Route::post('/logout', function () {
     Auth::logout();
     request()->session()->invalidate();
@@ -37,22 +47,20 @@ Route::post('/logout', function () {
     return redirect('/');
 })->name('logout');
 
-// Kawalan untuk semua pengguna yang login
 Route::middleware('auth')->group(function () {
-    // Profil pengguna
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
-});
 
-// ✅ Kawalan untuk Admin sahaja
-Route::middleware(['auth', 'role:Super Admin'])->group(function () {
     Route::resource('contracts', ContractController::class);
+    Route::get('contracts/{contract}/view', [ContractController::class, 'show'])->name('contracts.show');
+
     Route::resource('projections', ProjectionController::class);
     Route::resource('payments', PaymentController::class);
 
-    // Static Tables (Admin sahaja boleh ubah)
+    // STATIC TABLES
     Route::resource('expense-codes', ExpenseCodeController::class);
+    // Route::get('expense_codes/{expense_codes}/view', [ContractController::class, 'show'])->name('expense_codes.show');
     Route::resource('budget-codes', BudgetCodeController::class);
     Route::resource('companies', CompanyController::class);
     Route::resource('contract-types', ContractTypeController::class);
@@ -64,29 +72,7 @@ Route::middleware(['auth', 'role:Super Admin'])->group(function () {
     Route::resource('projects', ProjectController::class);
 });
 
-Route::middleware(['auth', 'role:Admin'])->group(function () {
-    Route::get('/test-admin', function () {
-        return "Anda Admin!";
-    });
-});
-
-
-// ✅ Kawalan untuk Manager sahaja
-Route::middleware(['auth', 'role:Manager'])->group(function () {
-    Route::get('contracts', [ContractController::class, 'index'])->name('contracts.index');
-    Route::get('contracts/create', [ContractController::class, 'create'])->name('contracts.create');
-    Route::post('contracts', [ContractController::class, 'store'])->name('contracts.store');
-
-    Route::get('projections', [ProjectionController::class, 'index'])->name('projections.index');
-    Route::get('projections/create', [ProjectionController::class, 'create'])->name('projections.create');
-    Route::post('projections', [ProjectionController::class, 'store'])->name('projections.store');
-});
-
-// ✅ Kawalan untuk semua pengguna yang login (tetapi hanya boleh melihat data)
-Route::middleware(['auth'])->group(function () {
-    Route::get('contracts/{contract}/view', [ContractController::class, 'show'])->name('contracts.show');
-    Route::get('projections/{projection}/view', [ProjectionController::class, 'show'])->name('projections.show');
-    Route::get('payments/{payment}/view', [PaymentController::class, 'show'])->name('payments.show');
-});
-
 require __DIR__.'/auth.php';
+
+
+

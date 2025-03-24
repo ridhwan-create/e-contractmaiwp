@@ -200,24 +200,64 @@ class ProjectionController extends Controller
     //                     ->with('success', 'Unjuran berjaya dikemas kini!');
     // }
 
+    // public function update(Request $request, Projection $projection)
+    // {
+    //     // Validasi input
+    //     $request->validate([
+    //         'amount' => 'required|numeric|min:1',
+    //     ]);
+
+    //     // Kemas kini semua medan dari $request, dan tambah/tindih dengan nilai yang dikira
+    //     $projection->update(
+    //         $request->all() + [
+    //             'remaining_projection' => $request->amount,
+    //             'edited_by' => auth()->id(),
+    //         ]
+    //     );
+
+    //     return redirect()->route('contracts.show', $request->contract_id)
+    //                     ->with('success_projections', 'Unjuran berjaya dikemas kini!');
+    // }
+
     public function update(Request $request, Projection $projection)
-    {
-        // Validasi input
-        $request->validate([
-            'amount' => 'required|numeric|min:1',
-        ]);
+{
+    // Validasi input
+    $request->validate([
+        'title' => 'required|string|max:255',
+        'year' => 'required|numeric|min:2020|max:2100',
+        'amount' => 'required|numeric|min:1',
+        'contract_id' => 'required|exists:contracts,id',
+        'entity_code' => 'required|exists:entity_codes,id',
+        'fund_code' => 'required|exists:funds,id',
+        'asnaf_code' => 'required|exists:asnaf,id',
+        'department_code' => 'required|exists:departments,id',
+        'program_code' => 'required|exists:programs,id',
+        'project_code' => 'required|exists:projects,id',
+        'expense_code_id' => 'required|exists:expense_codes,id',
+        'budget_code_id' => 'required|exists:budget_codes,id',
+    ]);
 
-        // Kemas kini semua medan dari $request, dan tambah/tindih dengan nilai yang dikira
-        $projection->update(
-            $request->all() + [
-                'remaining_projection' => $request->amount,
-                'edited_by' => auth()->id(),
-            ]
-        );
+    // Update projection
+    $projection->update([
+        'title' => $request->title,
+        'year' => $request->year,
+        'entity_code' => $request->entity_code,
+        'fund_code' => $request->fund_code,
+        'asnaf_code' => $request->asnaf_code,
+        'department_code' => $request->department_code,
+        'program_code' => $request->program_code,
+        'project_code' => $request->project_code,
+        'expense_code_id' => $request->expense_code_id,
+        'budget_code_id' => $request->budget_code_id,
+        'amount' => $request->amount,
+        'remaining_projection' => $request->amount,
+        'edited_by' => auth()->id(),
+    ]);
 
-        return redirect()->route('contracts.show', $request->contract_id)
-                        ->with('success', 'Unjuran berjaya dikemas kini!');
-    }
+    return redirect()->route('contracts.show', $request->contract_id)
+                     ->with('success_projections', 'Unjuran berjaya dikemas kini!');
+}
+
 
     public function destroy(Projection $projection)
     {

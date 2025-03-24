@@ -173,8 +173,8 @@
                             <thead>
                                 <tr class="bg-gray-200">
                                     <th class="border p-2">#</th>
-                                    <th class="border p-2">Tajuk</th>
                                     <th class="border p-2">Tahun</th>
+                                    <th class="border p-2">Tajuk</th>
                                     <th class="border p-2">Kod Bajet</th>
                                     <th class="border p-2">Amaun (RM)</th>
                                     <th class="border p-2">Baki Unjuran (RM)</th>
@@ -185,8 +185,8 @@
                                 @foreach($projections as $projection)
                                     <tr>
                                         <td class="border p-2 text-center">{{ $loop->iteration }}</td>
-                                        <td class="border p-2">{{ $projection->title }}</td>
                                         <td class="border p-2">{{ $projection->year }}</td>
+                                        <td class="border p-2">{{ $projection->title }}</td>
                                         <td class="border p-2">{{ $projection->budgetCode->code }} - {{ $projection->budgetCode->description }}</td>
                                         <td class="border p-2">RM {{ number_format($projection->amount, 2) }}</td>
                                         <td class="border p-2 {{ $projection->remaining_projection == 0 ? 'text-green-500' : 'text-red-500' }}">
@@ -198,22 +198,28 @@
                                                     <button class="px-2 py-1 bg-gray-400 text-white rounded cursor-not-allowed" disabled>✏️ Edit</button>
                                                     <button class="px-2 py-1 bg-gray-400 text-white rounded cursor-not-allowed" disabled>🗑️ Hapus</button>
                                                 @else
+                                                @can('edit projections')
                                                     <a href="{{ route('projections.edit', $projection->id) }}" class="px-2 py-1 bg-yellow-500 text-white rounded">✏️ Edit</a>
+                                                @endcan
                                                     <form action="{{ route('projections.destroy', $projection->id) }}" method="POST" class="inline delete-form">
                                                         @csrf
                                                         @method('DELETE')
-                                                        <button type="submit" class="px-2 py-1 bg-red-500 text-white rounded">🗑️ Hapus</button>
+                                                        @can('delete projections')
+                                                            <button type="submit" class="px-2 py-1 bg-red-500 text-white rounded">🗑️ Hapus</button>
+                                                        @endcan
                                                     </form>
                                                 @endif
-                                                <a href="{{ route('payments.create', [
-                                                    'remaining_projections' => $projection->remaining_projection, 
-                                                    'expense_code_id' => $projection->expense_code_id,
-                                                    'description' => $projection->expenseCode?->description,
-                                                    'contract_title' => $contract->title, 
-                                                    'contract_id' => $contract->id, 
-                                                    'projection_id' => $projection->id]) }}" 
-                                                    class="px-2 py-1 bg-blue-500 text-white rounded">💰 Bayaran
-                                                </a>
+                                                @can('create payments')
+                                                    <a href="{{ route('payments.create', [
+                                                        'remaining_projections' => $projection->remaining_projection, 
+                                                        'expense_code_id' => $projection->expense_code_id,
+                                                        'description' => $projection->expenseCode?->description,
+                                                        'contract_title' => $contract->title, 
+                                                        'contract_id' => $contract->id, 
+                                                        'projection_id' => $projection->id]) }}" 
+                                                        class="px-2 py-1 bg-blue-500 text-white rounded">💰 Bayaran
+                                                    </a>
+                                                @endcan
                                             @else
                                                 <button class="px-2 py-1 bg-gray-400 text-white rounded cursor-not-allowed" disabled>✏️ Edit</button>
                                                 <button class="px-2 py-1 bg-gray-400 text-white rounded cursor-not-allowed" disabled>🗑️ Hapus</button>
@@ -252,8 +258,10 @@
                     @endif
                 
                     <div class="mt-6">
-                        <a href="{{ route('projections.create', ['contract_id' => $contract->id]) }}" 
-                        class="px-4 py-2 bg-green-500 text-white rounded">➕ Tambah Unjuran</a>
+                        @can('create projections')
+                            <a href="{{ route('projections.create', ['contract_id' => $contract->id]) }}" 
+                            class="px-4 py-2 bg-green-500 text-white rounded">➕ Tambah Unjuran</a>
+                        @endcan
                     </div>
                 </div>
 
