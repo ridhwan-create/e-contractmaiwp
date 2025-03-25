@@ -18,6 +18,8 @@ use App\Http\Controllers\AsnafController;
 use App\Http\Controllers\DepartmentController;
 use App\Http\Controllers\ProgramController;
 use App\Http\Controllers\ProjectController;
+use App\Http\Controllers\UserRoleController;
+use App\Http\Controllers\UserController;
 
 // Redirect ke login jika akses root
 Route::get('/', function () {
@@ -62,6 +64,19 @@ Route::middleware(['auth', 'role:Super Admin'])->group(function () {
     Route::resource('departments', DepartmentController::class);
     Route::resource('programs', ProgramController::class);
     Route::resource('projects', ProjectController::class);
+
+    // Senarai Pengguna dan Peranan
+    Route::get('/users', [UserRoleController::class, 'index'])->name('users.index');
+    Route::get('/users/{user}/assign-role', [UserRoleController::class, 'edit'])->name('users.assign-role');
+    Route::post('/users/{user}/assign-role', [UserRoleController::class, 'update'])->name('users.assign-role.update');
+
+    // Tetapan Pengguna
+    Route::get('/users/create', [UserController::class, 'create'])->name('users.create');
+    Route::post('/users', [UserController::class, 'store'])->name('users.store');
+
+    Route::get('/users/{user}/edit', [UserController::class, 'edit'])->name('users.edit');
+    Route::put('/users/{user}', [UserController::class, 'update'])->name('users.update');
+
 });
 
 Route::middleware(['auth', 'role:Admin'])->group(function () {

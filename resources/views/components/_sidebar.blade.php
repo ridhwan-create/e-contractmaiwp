@@ -34,6 +34,10 @@
                 </div>
             </div>
 
+            <hr class="border-t-2 border-gray-500 my-4">
+
+            <a href="{{ route('users.index') }}" class="block py-2">📜 Senarai Pengguna & Peranan</a>
+
             <script>
                 function toggleSubMenu(id) {
                     const subMenu = document.getElementById(id);
