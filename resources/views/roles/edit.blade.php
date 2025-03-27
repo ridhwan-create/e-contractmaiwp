@@ -25,9 +25,14 @@
                     @endforeach
                 </div>
 
-                <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-700">
-                    Simpan Perubahan
-                </button>
+                <div class="flex justify-between">
+                    <a href="{{ route('roles.index') }}" class="px-4 py-2 bg-gray-500 text-white rounded hover:bg-gray-700">
+                        ⬅️ Kembali
+                    </a>
+    
+                    <x-primary-button class="px-6 py-2">💾 Simpan</x-primary-button>
+                </div>
+
             </form>
         </div>
     </div>

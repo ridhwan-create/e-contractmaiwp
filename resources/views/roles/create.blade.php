@@ -8,24 +8,38 @@
             <form method="POST" action="{{ route('roles.store') }}">
                 @csrf
 
-                <div class="mb-4">
-                    <x-input-label for="name" value="Nama Peranan" />
-                    <x-text-input id="name" class="w-full" type="text" name="name" required />
+                {{-- Container: Maklumat Peranan --}}
+                <div class="mb-6 border p-4 rounded-lg shadow-sm">
+                    <h3 class="text-lg font-semibold mb-4 border-b pb-2">📌 Maklumat Peranan</h3>
+
+                    <div class="mb-4">
+                        <x-input-label for="name" value="Nama Peranan" />
+                        <x-text-input id="name" class="w-full uppercase" type="text" name="name" required />
+                    </div>
                 </div>
 
-                <div class="mb-4">
-                    <x-input-label value="Kebenaran" />
-                    @foreach ($permissions as $permission)
-                        <label class="inline-flex items-center">
-                            <input type="checkbox" name="permissions[]" value="{{ $permission->id }}" class="form-checkbox">
-                            <span class="ml-2">{{ $permission->name }}</span>
-                        </label><br>
-                    @endforeach
+                {{-- Container: Senarai Kebenaran --}}
+                <div class="mb-6 border p-4 rounded-lg shadow-sm">
+                    <h3 class="text-lg font-semibold mb-4 border-b pb-2">🔑 Senarai Kebenaran</h3>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+                        @foreach ($permissions as $permission)
+                            <label class="flex items-center space-x-2">
+                                <input type="checkbox" name="permissions[]" value="{{ $permission->id }}" class="form-checkbox">
+                                <span>{{ $permission->name }}</span>
+                            </label>
+                        @endforeach
+                    </div>
                 </div>
 
-                <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-700">
-                    Simpan
-                </button>
+                {{-- Butang Kembali & Simpan --}}
+                <div class="flex justify-between">
+                    <a href="{{ route('roles.index') }}" class="px-4 py-2 bg-gray-500 text-white rounded hover:bg-gray-700">
+                        ⬅️ Kembali
+                    </a>
+
+                    <x-primary-button class="px-6 py-2">✅ Daftar Peranan</x-primary-button>
+                </div>
             </form>
         </div>
     </div>

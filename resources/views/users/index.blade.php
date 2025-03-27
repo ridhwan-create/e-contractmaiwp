@@ -7,7 +7,7 @@
         <div class="max-w-6xl mx-auto bg-white p-6 rounded shadow">
             <div class="flex justify-between items-center mb-4">
                 <h1 class="text-xl font-semibold leading-tight">Senarai Pengguna & Peranan</h1>
-                <a href="{{ route('users.create') }}" class="px-5 py-3 bg-blue-500 text-white rounded">+ Tambah</a>
+                <a href="{{ route('users.create') }}" class="px-6 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded">+ Tambah</a>
             </div>
 
                 {{-- <x-session-status class="mb-4" /> --}}
