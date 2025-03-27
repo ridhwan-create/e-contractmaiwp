@@ -17,9 +17,14 @@ class RoleMiddleware
         //     abort(403, 'Anda tidak mempunyai kebenaran untuk mengakses halaman ini.');
         // }
 
-        if (!auth()->check() || (auth()->user() && !auth()->user()->hasRole($role))) {
-            return response()->view('errors.403', [], 403);
-        }        
+        // if (!auth()->check() || (auth()->user() && !auth()->user()->hasRole($role))) {
+        //     return response()->view('errors.403', [], 403);
+        // }           
+
+        if (!auth()->check() || !auth()->user()->hasRole($role)) {
+            abort(403, 'Anda tidak mempunyai kebenaran untuk mengakses halaman ini.');
+        }
+        
 
         return $next($request);
     }

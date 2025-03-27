@@ -300,7 +300,9 @@
                                             <form action="{{ route('payments.destroy', $payment->id) }}" method="POST" class="inline delete-form">
                                                 @csrf
                                                 @method('DELETE')
-                                                <button type="submit" class="px-2 py-1 bg-red-500 text-white rounded delete-button">🗑️ Hapus</button>
+                                                @can('delete payments')
+                                                    <button type="submit" class="px-2 py-1 bg-red-500 text-white rounded delete-button">🗑️ Hapus</button>
+                                                @endcan
                                             </form>
                                         </td>
                                     </tr>

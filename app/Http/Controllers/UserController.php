@@ -15,13 +15,36 @@ class UserController extends Controller
         return view('users.create', compact('roles'));
     }
 
+    // public function store(Request $request)
+    // {
+    //     $request->validate([
+    //         'name' => 'required|string|max:255',
+    //         'email' => 'required|email|unique:users,email',
+    //         'password' => 'required|min:6|confirmed',
+    //         'role' => 'required|exists:roles,id',
+    //     ]);
+
+    //     $user = User::create([
+    //         'name' => $request->name,
+    //         'email' => $request->email,
+    //         'password' => Hash::make($request->password),
+    //     ]);
+
+    //     $role = Role::find($request->role);
+    //     $user->assignRole($role->name);
+
+    //     return redirect()->route('users.index')->with('success', 'Pengguna berjaya didaftarkan!');
+    // }
+
     public function store(Request $request)
     {
         $request->validate([
-            'name' => 'required|string|max:255',
+            // 'name' => 'required|string|max:255',
+            'name' => ['required', 'string', 'max:255', 'uppercase'],
             'email' => 'required|email|unique:users,email',
             'password' => 'required|min:6|confirmed',
-            'role' => 'required|exists:roles,id',
+            'roles' => 'required|array',
+            'roles.*' => 'exists:roles,id',
         ]);
 
         $user = User::create([
@@ -30,8 +53,8 @@ class UserController extends Controller
             'password' => Hash::make($request->password),
         ]);
 
-        $role = Role::find($request->role);
-        $user->assignRole($role->name);
+        $roles = Role::whereIn('id', $request->roles)->pluck('name');
+        $user->syncRoles($roles);
 
         return redirect()->route('users.index')->with('success', 'Pengguna berjaya didaftarkan!');
     }
@@ -66,7 +89,8 @@ class UserController extends Controller
     public function update(Request $request, User $user)
     {
         $request->validate([
-            'name' => 'required|string|max:255',
+            // 'name' => 'required|string|max:255',
+            'name' => 'required|string|max:255|uppercase',
             'email' => 'required|email|unique:users,email,' . $user->id,
             'password' => 'nullable|min:6|confirmed',
             'roles' => 'required|array', // Pastikan roles dalam bentuk array

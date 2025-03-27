@@ -20,6 +20,7 @@ use App\Http\Controllers\ProgramController;
 use App\Http\Controllers\ProjectController;
 use App\Http\Controllers\UserRoleController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\RoleController;
 
 // Redirect ke login jika akses root
 Route::get('/', function () {
@@ -73,9 +74,12 @@ Route::middleware(['auth', 'role:Super Admin'])->group(function () {
     // Tetapan Pengguna
     Route::get('/users/create', [UserController::class, 'create'])->name('users.create');
     Route::post('/users', [UserController::class, 'store'])->name('users.store');
-
     Route::get('/users/{user}/edit', [UserController::class, 'edit'])->name('users.edit');
     Route::put('/users/{user}', [UserController::class, 'update'])->name('users.update');
+
+    // Tetapan Peranan (Role)
+    Route::resource('roles', RoleController::class);
+
 
 });
 
@@ -98,10 +102,17 @@ Route::middleware(['auth', 'role:Manager'])->group(function () {
 });
 
 // ✅ Kawalan untuk semua pengguna yang login (tetapi hanya boleh melihat data)
+// Route::middleware(['auth'])->group(function () {
+//     Route::get('contracts/{contract}/view', [ContractController::class, 'show'])->name('contracts.show');
+//     Route::get('projections/{projection}/view', [ProjectionController::class, 'show'])->name('projections.show');
+//     Route::get('payments/{payment}/view', [PaymentController::class, 'show'])->name('payments.show');
+// });
 Route::middleware(['auth'])->group(function () {
+    Route::get('contracts', [ContractController::class, 'index'])->name('contracts.index'); // ⬅️ Tambah di sini
     Route::get('contracts/{contract}/view', [ContractController::class, 'show'])->name('contracts.show');
     Route::get('projections/{projection}/view', [ProjectionController::class, 'show'])->name('projections.show');
     Route::get('payments/{payment}/view', [PaymentController::class, 'show'])->name('payments.show');
 });
+
 
 require __DIR__.'/auth.php';
