@@ -20,8 +20,10 @@
                     </div>
                     
                     <div class="mt-6 flex space-x-4">
-                        <a href="{{ route('projects.index') }}" class="px-5 py-3 bg-gray-500 text-white rounded">⬅️ Kembali</a>
-                        <button type="submit" class="px-5 py-3 bg-green-500 text-white rounded">💾 Simpan</button>
+                        <a href="{{ route('projects.index') }}"  class="px-4 py-2 bg-gray-500 text-white rounded hover:bg-gray-700">
+                            ⬅️ Kembali
+                        </a>
+                        <x-primary-button class="px-6 py-2">✅ Daftar</x-primary-button>
                     </div>
                 </form>
             </div>

@@ -10,7 +10,7 @@
             <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg p-6">
                 <div class="flex justify-between mb-4">
                     <h1 class="text-xl font-bold">📌 Senarai Kod Entiti</h1>
-                    <a href="{{ route('entity-codes.create') }}" class="px-5 py-3 border p-2 bg-blue-500 text-white rounded">+ Tambah</a>
+                    <a href="{{ route('entity-codes.create') }}" class="px-6 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded">+ Tambah</a>
                 </div>
 
                 @if (session('success'))

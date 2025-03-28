@@ -8,9 +8,7 @@
     <div class="py-6">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg p-6">
-                <a href="{{ route('payments.create') }}" class="mb-4 px-4 py-2 bg-blue-500 text-white rounded">
-                    + Tambah Bayaran
-                </a>
+                <a href="{{ route('payments.create') }}" class="px-6 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded">+ Tambah</a>
 
                 @if (session('success'))
                     <div class="mb-4 text-green-600">{{ session('success') }}</div>

@@ -23,8 +23,11 @@
                         <x-text-input id="description" name="description" type="text" class="mt-1 block w-full" required />
                     </div>
 
-                    <div class="mt-6">
-                        <button type="submit" class="px-5 py-3 bg-green-500 text-white rounded">💾 Simpan</button>
+                    <div class="mt-6 flex space-x-4 col-span-1 md:col-span-3">
+                        <a href="{{ route('funds.index') }}" class="px-4 py-2 bg-gray-500 text-white rounded hover:bg-gray-700">
+                            ⬅️ Kembali
+                        </a>
+                        <x-primary-button class="px-6 py-2">✅ Daftar</x-primary-button>
                     </div>
                 </form>
             </div>

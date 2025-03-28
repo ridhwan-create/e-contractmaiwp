@@ -9,9 +9,9 @@
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg p-6">
 
-                <div class="flex justify-between mb-4">
+                <div class="flex justify-between items-center mb-4 gap-4">
                     <h1 class="text-xl font-bold mb-4">🏦 Senarai Dana</h1>
-                    <a href="{{ route('funds.create') }}" class="border p-2 bg-blue-500 text-white rounded">+ Tambah</a>
+                    <a href="{{ route('funds.create') }}" class="px-6 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded">+ Tambah</a>
                 </div>
 
                 @if (session('success'))

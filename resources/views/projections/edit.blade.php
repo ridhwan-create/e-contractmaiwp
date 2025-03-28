@@ -106,8 +106,10 @@
                         </div>
 
                         <div class="flex items-center gap-4 col-span-3">
-                            <a href="{{ route('contracts.show', $projection->contract_id) }}" class="px-5 py-3 bg-gray-500 text-white rounded">⬅️ Kembali</a>
-                            <button type="submit" class="px-5 py-3 bg-blue-500 text-white rounded">💾 Kemaskini</button>
+                            <a href="{{ route('contracts.show', $projection->contract_id) }}"  class="px-4 py-2 bg-gray-500 text-white rounded hover:bg-gray-700">
+                                ⬅️ Kembali
+                            </a>
+                            <x-primary-button class="px-6 py-2">💾 Simpan</x-primary-button>
                         </div>
                     </form>
             </div>

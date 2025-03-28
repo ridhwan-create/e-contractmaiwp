@@ -10,7 +10,7 @@
             <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg p-6">
                 <h3 class="text-lg font-semibold mb-4">➕ Tambah Kod Entiti</h3>
 
-                <form action="{{ route('entity_codes.store') }}" method="POST" class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <form action="{{ route('entity-codes.store') }}" method="POST" class="grid grid-cols-1 md:grid-cols-2 gap-4">
                     @csrf
 
                     <div>
@@ -26,8 +26,10 @@
                     </div>
 
                     <div class="mt-6 flex space-x-4 col-span-2">
-                        <a href="{{ route('entity_codes.index') }}" class="px-5 py-3 bg-gray-500 text-white rounded">⬅️ Kembali</a> 
-                        <button type="submit" class="px-5 py-3 bg-green-500 text-white rounded">💾 Simpan</button>
+                        <a href="{{ route('entity-codes.index') }}" class="px-4 py-2 bg-gray-500 text-white rounded hover:bg-gray-700">
+                            ⬅️ Kembali
+                        </a>
+                        <x-primary-button class="px-6 py-2">✅ Daftar</x-primary-button>
                     </div>
                 </form>
             </div>
