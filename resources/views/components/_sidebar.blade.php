@@ -54,6 +54,7 @@
                 </div>
             
                 <div id="statik-menu" class="hidden pl-4">
+                    <a href="{{ route('allocations.index') }}" class="block py-2">🔢 Peruntukan</a>
                     <a href="{{ route('expense-codes.index') }}" class="block py-2">🔢 Kod Belanja</a>
                     <a href="{{ route('budget-codes.index') }}" class="block py-2">💲 Kod Bajet</a>
                     <a href="{{ route('companies.index') }}" class="block py-2">🏢 Kod Syarikat</a>

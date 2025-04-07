@@ -21,6 +21,8 @@ use App\Http\Controllers\ProjectController;
 use App\Http\Controllers\UserRoleController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\RoleController;
+use App\Http\Controllers\AllocationController;
+use App\Http\Controllers\DashboardController;
 
 // Redirect ke login jika akses root
 Route::get('/', function () {
@@ -28,9 +30,11 @@ Route::get('/', function () {
 });
 
 // Dashboard hanya boleh diakses oleh pengguna yang login
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+// Route::get('/dashboard', function () {
+//     return view('dashboard');
+// })->middleware(['auth', 'verified'])->name('dashboard');
+Route::get('/dashboard', [DashboardController::class, 'index'])->middleware(['auth'])->name('dashboard');
+
 
 // Proses logout
 Route::post('/logout', function () {
@@ -79,6 +83,9 @@ Route::middleware(['auth', 'role:Super Admin'])->group(function () {
 
     // Tetapan Peranan (Role)
     Route::resource('roles', RoleController::class);
+
+    // Tetapan Peruntukan
+    Route::resource('allocations', AllocationController::class);
 
 
 });
